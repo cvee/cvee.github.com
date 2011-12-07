@@ -39,7 +39,7 @@ To avoid the security concerns caused by running applications as root, you may w
     sudo chown node:node /home/node/.ssh
     sudo chmod 700 /home/node/.ssh
     
-For security, the 'node' user account is created with password logins disabled. In order to login via SSH as 'node', creat or edit the file /home/node/.ssh/authorized_keys then copy in your public key. Save /home/node/.ssh/authorized_keys and assign it the correct access permissions.
+For security, the 'node' user account is created with password logins disabled. In order to login via SSH as 'node', create or edit the file /home/node/.ssh/authorized_keys then copy in your public key. Save /home/node/.ssh/authorized_keys and assign it the correct access permissions.
 
     sudo chown node:node /home/node/.ssh/authorized_keys
     sudo chmod 600 /home/node/.ssh/authorized_keys
