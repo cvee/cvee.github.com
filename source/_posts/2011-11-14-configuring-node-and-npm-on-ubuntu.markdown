@@ -16,17 +16,17 @@ Install the packages needed to download, build and install node.js and npm.
 ## node.js Installation
 
     cd ~/
-    curl -O http://nodejs.org/dist/v0.6.3/node-v0.6.3.tar.gz
-    tar -C /tmp -xzf node-v0.6.3.tar.gz
-    cd /tmp/node-v0.6.3
+    curl -O http://nodejs.org/dist/v0.6.5/node-v0.6.5.tar.gz
+    tar -C /tmp -xzf node-v0.6.5.tar.gz
+    cd /tmp/node-v0.6.5
     ./configure
     make -j2 && sudo make install
     cd ~/
-    rm -rf /tmp/node-v0.6.3
+    rm -rf /tmp/node-v0.6.5
 
 ## npm Installation
 
-As of node.js 0.6.3, npm is included in packages/installers and installed on make install. The following installation instructions are included for historical purposes only.
+As of node.js 0.6.5, npm is included in packages/installers and installed on make install. The following installation instructions are included for historical purposes only.
 
     curl http://npmjs.org/install.sh | sudo sh
 
