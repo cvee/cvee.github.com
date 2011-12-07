@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Configuring node.js, npm and mongoDB on Ubuntu - Chris Verwymeren's Blog</title>
+  <title>Configuring CouchDB on Ubuntu - Chris Verwymeren's Blog</title>
   <meta name="author" content="Chris Verwymeren">
 
   
-  <meta name="description" content="The rapid pace of development on node.js, npm and mongoDB has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the &hellip;">
+  <meta name="description" content="To ensure an Ubuntu system is using the lastest stable version of CouchDB currently requires building from source. This tutorial describes how to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu">
+  <link rel="canonical" href="http://cvee.github.com/blog/2011/11/28/configuring-couchdb-on-ubuntu">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -63,7 +63,7 @@
   
   <header>
     
-      <h1 class="entry-title">Configuring node.js, Npm and mongoDB on Ubuntu</h1>
+      <h1 class="entry-title">Configuring CouchDB on Ubuntu</h1>
     
     
       <p class="meta">
@@ -79,69 +79,101 @@
   
 
 
-<time datetime="2011-11-14T00:00:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
+<time datetime="2011-11-28T00:00:00-05:00" pubdate data-updated="true">Nov 28<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>The rapid pace of development on node.js, npm and mongoDB has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the official Ubuntu provided node.js, npm and mongoDB packages quickly become outdated. To ensure an Ubuntu system is using the lastest stable (or unstable) versions of node.js, npm and mongDB currently requires an extra bit of work. This tutorial describes how to install the lastest stable versions of node.js, npm and mongoDB on an Ubuntu system.</p>
+<div class="entry-content"><p>To ensure an Ubuntu system is using the lastest stable version of CouchDB currently requires building from source. This tutorial describes how to download, build, install and configure the lastest stable version of CouchDB on an Ubuntu system.</p>
 
-<h2>Install Developer Packages</h2>
+<h1>Install Dependencies</h1>
 
-<p>Install the packages needed to download, build and install node.js and npm.</p>
+<p>Install the packages needed to download, build and install CouchDB.</p>
 
-<pre><code>sudo apt-get -y install build-essential libssl-dev openssh-server pkg-config curl git-core
+<pre><code>sudo apt-get -y install build-essential autoconf automake libtool erlang libicu-dev libmozjs-dev libcurl4-openssl-dev
 </code></pre>
 
-<h2>node.js Installation</h2>
+<h1>Install CouchDB</h1>
 
-<pre><code>cd ~/
-curl -O http://nodejs.org/dist/v0.6.3/node-v0.6.3.tar.gz
-tar -C /tmp -xzf node-v0.6.3.tar.gz
-cd /tmp/node-v0.6.3
-./configure
-make -j2 &amp;&amp; sudo make install
-cd ~/
-rm -rf /tmp/node-v0.6.3
+<h2>Get the Source</h2>
+
+<p>Download and extract the CouchDB 1.1.1 source code.</p>
+
+<pre><code>curl -O http://www.apache.org/dyn/closer.cgi?path=/couchdb/1.1.1/apache-couchdb-1.1.1.tar.gz
+tar -C /tmp -xzf apache-couchdb-1.1.1.tar.gz
+cd /tmp/apache-couchdb-1.1.1
 </code></pre>
 
-<h2>npm Installation</h2>
+<p>OR</p>
 
-<p>As of node.js 0.6.3, npm is included in packages/installers and installed on make install. The following installation instructions are included for historical purposes only.</p>
+<p>Clone the latest CouchDB source code:</p>
 
-<pre><code>curl http://npmjs.org/install.sh | sudo sh
+<pre><code>git clone http://git-wip-us.apache.org/repos/asf/couchdb.git /tmp/couchdb
 </code></pre>
 
-<h2>Short Cut</h2>
+<p>Checkout the 1.2.x branch:</p>
 
-<p>So you&#8217;ve made this far through the tutorial and are thinking, &#8220;That&#8217;s a lot of steps!&#8221;. To simplify things I&#8217;ve created a shell script to automatically install mongoDB, node.js and npm. Download and run the shell script using the following command:</p>
-
-<pre><code>wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install.sh | sudo sh
+<pre><code>cd /tmp/couchdb
+git checkout --track -b 1.2.x origin/1.2.x
 </code></pre>
 
-<h2>Create a Dedicated User Account</h2>
+<p>Run <code>bootstrap</code> to create the <code>configure</code> script:</p>
 
-<p>To avoid the security concerns caused by running applications as root, you may want to create a user responsible for running node apps.</p>
-
-<pre><code>sudo adduser --home /home/node --shell /bin/bash --disabled-password node
-sudo mkdir /home/node/.ssh
-sudo chown node:node /home/node/.ssh
-sudo chmod 700 /home/node/.ssh
+<pre><code>./bootstrap
 </code></pre>
 
-<p>For security, the &#8216;node&#8217; user account is created with password logins disabled. In order to login via SSH as &#8216;node&#8217;, creat or edit the file /home/node/.ssh/authorized_keys then copy in your public key. Save /home/node/.ssh/authorized_keys and assign it the correct access permissions.</p>
+<h2>Build and Install</h2>
 
-<pre><code>sudo chown node:node /home/node/.ssh/authorized_keys
-sudo chmod 600 /home/node/.ssh/authorized_keys
+<p>Build the source and install the compiled binaries.</p>
+
+<pre><code>./configure
+make &amp;&amp; sudo make install
+</code></pre>
+
+<p>Create a user account dedicated for CouchDB:</p>
+
+<pre><code>sudo adduser --system --home /usr/local/var/lib/couchdb --no-create-home --shell /bin/bash --group --gecos "CouchDB Administrator" couchdb
+</code></pre>
+
+<p>Change the ownership of the CouchDB directories:</p>
+
+<pre><code>sudo chown -R couchdb:couchdb /usr/local/etc/couchdb
+sudo chown -R couchdb:couchdb /usr/local/var/lib/couchdb
+sudo chown -R couchdb:couchdb /usr/local/var/log/couchdb
+sudo chown -R couchdb:couchdb /usr/local/var/run/couchdb
+</code></pre>
+
+<p>Change the permission of the CouchDB directories:</p>
+
+<pre><code>sudo chmod 0770 /usr/local/etc/couchdb
+sudo chmod 0770 /usr/local/var/lib/couchdb
+sudo chmod 0770 /usr/local/var/log/couchdb
+sudo chmod 0770 /usr/local/var/run/couchdb
+</code></pre>
+
+<p>Create a administrator, edit /usr/local/etc/couchdb/local.ini and add the section:</p>
+
+<pre><code>[admins]
+root = &lt;password&gt;
+</code></pre>
+
+<p>To start the daemon on boot, copy the init script to /etc/init.d</p>
+
+<pre><code>sudo cp /usr/local/etc/init.d/couchdb /etc/init.d
+sudo update-rc.d couchdb defaults
+</code></pre>
+
+<p>Manually start CouchDB:</p>
+
+<pre><code>sudo service couchdb start
 </code></pre>
 
 <h1>More Information</h1>
 
 <ul>
-<li><a href="http://nodejs.org/">node.js</a></li>
-<li><a href="http://npmjs.org/">npm</a></li>
+<li><a href="http://couchdb.apache.org">Apache CouchDB</a></li>
 </ul>
 
 </div>
@@ -166,7 +198,7 @@ sudo chmod 600 /home/node/.ssh/authorized_keys
   
 
 
-<time datetime="2011-11-14T00:00:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
+<time datetime="2011-11-28T00:00:00-05:00" pubdate data-updated="true">Nov 28<span>th</span>, 2011</time>
       
 
 
@@ -174,7 +206,7 @@ sudo chmod 600 /home/node/.ssh/authorized_keys
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/" data-via="" data-counturl="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cvee.github.com/blog/2011/11/28/configuring-couchdb-on-ubuntu/" data-via="" data-counturl="http://cvee.github.com/blog/2011/11/28/configuring-couchdb-on-ubuntu/" >Tweet</a>
   
   
   
@@ -183,8 +215,10 @@ sudo chmod 600 /home/node/.ssh/authorized_keys
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2011/11/21/running-node-apps-with-upstart/" title="Previous Post: Running node.js Apps with Upstart">&laquo; Running node.js Apps with Upstart</a>
       
-        <a class="basic-alignment right" href="/blog/2011/11/21/running-node-apps-with-upstart/" title="next Post: Running node.js Apps with Upstart">Running node.js Apps with Upstart &raquo;</a>
+      
+        <a class="basic-alignment right" href="/blog/2011/12/05/configuring-mongodb-on-ubuntu/" title="next Post: Configuring MongoDB on Ubuntu">Configuring MongoDB on Ubuntu &raquo;</a>
       
     </p>
   </footer>

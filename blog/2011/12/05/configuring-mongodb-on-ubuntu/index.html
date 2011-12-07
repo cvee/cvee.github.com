@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Configuring node.js, npm and mongoDB on Ubuntu - Chris Verwymeren's Blog</title>
+  <title>Configuring MongoDB on Ubuntu - Chris Verwymeren's Blog</title>
   <meta name="author" content="Chris Verwymeren">
 
   
-  <meta name="description" content="The rapid pace of development on node.js, npm and mongoDB has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the &hellip;">
+  <meta name="description" content="This tutorial describes how to download and install the lastest stable version of MongoDB on an Ubuntu system. The following instructions cover &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu">
+  <link rel="canonical" href="http://cvee.github.com/blog/2011/12/05/configuring-mongodb-on-ubuntu">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -63,7 +63,7 @@
   
   <header>
     
-      <h1 class="entry-title">Configuring node.js, Npm and mongoDB on Ubuntu</h1>
+      <h1 class="entry-title">Configuring MongoDB on Ubuntu</h1>
     
     
       <p class="meta">
@@ -79,69 +79,83 @@
   
 
 
-<time datetime="2011-11-14T00:00:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
+<time datetime="2011-12-05T00:00:00-05:00" pubdate data-updated="true">Dec 5<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>The rapid pace of development on node.js, npm and mongoDB has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the official Ubuntu provided node.js, npm and mongoDB packages quickly become outdated. To ensure an Ubuntu system is using the lastest stable (or unstable) versions of node.js, npm and mongDB currently requires an extra bit of work. This tutorial describes how to install the lastest stable versions of node.js, npm and mongoDB on an Ubuntu system.</p>
+<div class="entry-content"><p>This tutorial describes how to download and install the lastest stable version of MongoDB on an Ubuntu system.</p>
 
-<h2>Install Developer Packages</h2>
+<p>The following instructions cover installing and upgrading MongoDB using two different methods. The first and recommended method uses apt-get to install the MongoDB package provided by the 10gen repository. If you require more control over the location of the binaries, use the instructions in &#8220;Generic Linux Binaries&#8221; to install the generic Linux binaries provided at http://www.mongodb.org/downloads.</p>
 
-<p>Install the packages needed to download, build and install node.js and npm.</p>
+<h1>10gen Repository</h1>
 
-<pre><code>sudo apt-get -y install build-essential libssl-dev openssh-server pkg-config curl git-core
+<h2>Add 10gen Repository</h2>
+
+<p>10gen, the creator of mongoDB, publishes a mongoDB package for Ubuntu. To access the package via apt-get add the 10gen repository to /etc/apt/sources.list.</p>
+
+<pre><code>sudo sh -c "echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' &gt;&gt; /etc/apt/sources.list.d/downloads-distro.mongodb.org.list"
 </code></pre>
 
-<h2>node.js Installation</h2>
+<p>Next, import the public GPG key used to sign packages contained in the 10gen repository.</p>
+
+<pre><code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+</code></pre>
+
+<p>Run apt-get to retrieve the list of package files provided by the the new source respository.</p>
+
+<pre><code>sudo apt-get update
+</code></pre>
+
+<h2>Install mongodb-10gen</h2>
+
+<p>Installation via the 10gen repository requires one command to download, install and automatically start MongoDB.</p>
+
+<pre><code>sudo apt-get -y install mongodb-10gen
+</code></pre>
+
+<h1>Generic Linux Binaries</h1>
+
+<h2>Installation</h2>
 
 <pre><code>cd ~/
-curl -O http://nodejs.org/dist/v0.6.3/node-v0.6.3.tar.gz
-tar -C /tmp -xzf node-v0.6.3.tar.gz
-cd /tmp/node-v0.6.3
-./configure
-make -j2 &amp;&amp; sudo make install
+git clone git://github.com/cvee/ubuntu-env.git
+sudo adduser --system --group --home /opt/mongodb --shell /bin/false --no-create-home mongodb
+sudo mkdir /opt/mongodb
+sudo mkdir /etc/mongodb
+sudo mkdir /var/opt/mongodb
+sudo mkdir /var/opt/mongodb/db
+sudo mkdir /var/opt/mongodb/log
+sudo chown -R mongodb:mongodb /var/opt/mongodb
+sudo cp ~/ubuntu-env/etc/mongodb/mongodb.conf /etc/mongodb/mongodb.conf
+sudo cp ~/ubuntu-env/etc/init/mongodb.conf /etc/init/mongodb.conf
 cd ~/
-rm -rf /tmp/node-v0.6.3
+curl -O http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.0.1.tgz
+sudo tar -C /opt/mongodb -xzf mongodb-linux-x86_64-2.0.1.tgz
+cd /opt/mongodb
+sudo mv mongodb-linux-x86_64-2.0.1 2.0.1
+sudo ln -s 2.0.1 latest
+sudo service mongodb start
 </code></pre>
 
-<h2>npm Installation</h2>
+<h2>Upgrade</h2>
 
-<p>As of node.js 0.6.3, npm is included in packages/installers and installed on make install. The following installation instructions are included for historical purposes only.</p>
-
-<pre><code>curl http://npmjs.org/install.sh | sudo sh
-</code></pre>
-
-<h2>Short Cut</h2>
-
-<p>So you&#8217;ve made this far through the tutorial and are thinking, &#8220;That&#8217;s a lot of steps!&#8221;. To simplify things I&#8217;ve created a shell script to automatically install mongoDB, node.js and npm. Download and run the shell script using the following command:</p>
-
-<pre><code>wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install.sh | sudo sh
-</code></pre>
-
-<h2>Create a Dedicated User Account</h2>
-
-<p>To avoid the security concerns caused by running applications as root, you may want to create a user responsible for running node apps.</p>
-
-<pre><code>sudo adduser --home /home/node --shell /bin/bash --disabled-password node
-sudo mkdir /home/node/.ssh
-sudo chown node:node /home/node/.ssh
-sudo chmod 700 /home/node/.ssh
-</code></pre>
-
-<p>For security, the &#8216;node&#8217; user account is created with password logins disabled. In order to login via SSH as &#8216;node&#8217;, creat or edit the file /home/node/.ssh/authorized_keys then copy in your public key. Save /home/node/.ssh/authorized_keys and assign it the correct access permissions.</p>
-
-<pre><code>sudo chown node:node /home/node/.ssh/authorized_keys
-sudo chmod 600 /home/node/.ssh/authorized_keys
+<pre><code>sudo service mongodb stop
+cd ~/
+curl -O http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.0.1.tgz
+sudo tar -C /opt/mongodb -xzf mongodb-linux-x86_64-2.0.1.tgz
+cd /opt/mongodb
+sudo mv mongodb-linux-x86_64-2.0.1 2.0.1
+sudo unlink latest &amp;&amp; sudo ln -s 2.0.1 latest
+sudo service mongodb start
 </code></pre>
 
 <h1>More Information</h1>
 
 <ul>
-<li><a href="http://nodejs.org/">node.js</a></li>
-<li><a href="http://npmjs.org/">npm</a></li>
+<li><a href="http://www.mongodb.org/">mongoDB</a></li>
 </ul>
 
 </div>
@@ -166,7 +180,7 @@ sudo chmod 600 /home/node/.ssh/authorized_keys
   
 
 
-<time datetime="2011-11-14T00:00:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
+<time datetime="2011-12-05T00:00:00-05:00" pubdate data-updated="true">Dec 5<span>th</span>, 2011</time>
       
 
 
@@ -174,7 +188,7 @@ sudo chmod 600 /home/node/.ssh/authorized_keys
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/" data-via="" data-counturl="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cvee.github.com/blog/2011/12/05/configuring-mongodb-on-ubuntu/" data-via="" data-counturl="http://cvee.github.com/blog/2011/12/05/configuring-mongodb-on-ubuntu/" >Tweet</a>
   
   
   
@@ -183,8 +197,8 @@ sudo chmod 600 /home/node/.ssh/authorized_keys
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2011/11/28/configuring-couchdb-on-ubuntu/" title="Previous Post: Configuring CouchDB on Ubuntu">&laquo; Configuring CouchDB on Ubuntu</a>
       
-        <a class="basic-alignment right" href="/blog/2011/11/21/running-node-apps-with-upstart/" title="next Post: Running node.js Apps with Upstart">Running node.js Apps with Upstart &raquo;</a>
       
     </p>
   </footer>

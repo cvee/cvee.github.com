@@ -4,7 +4,7 @@
   <title><![CDATA[Chris Verwymeren's Blog]]></title>
   <link href="http://cvee.github.com/atom.xml" rel="self"/>
   <link href="http://cvee.github.com/"/>
-  <updated>2011-12-07T14:30:56-05:00</updated>
+  <updated>2011-12-07T14:37:19-05:00</updated>
   <id>http://cvee.github.com/</id>
   <author>
     <name><![CDATA[Chris Verwymeren]]></name>
@@ -12,6 +12,314 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Configuring MongoDB on Ubuntu]]></title>
+    <link href="http://cvee.github.com/blog/2011/12/05/configuring-mongodb-on-ubuntu/"/>
+    <updated>2011-12-05T00:00:00-05:00</updated>
+    <id>http://cvee.github.com/blog/2011/12/05/configuring-mongodb-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>This tutorial describes how to download and install the lastest stable version of MongoDB on an Ubuntu system.</p>
+
+<p>The following instructions cover installing and upgrading MongoDB using two different methods. The first and recommended method uses apt-get to install the MongoDB package provided by the 10gen repository. If you require more control over the location of the binaries, use the instructions in &#8220;Generic Linux Binaries&#8221; to install the generic Linux binaries provided at http://www.mongodb.org/downloads.</p>
+
+<h1>10gen Repository</h1>
+
+<h2>Add 10gen Repository</h2>
+
+<p>10gen, the creator of mongoDB, publishes a mongoDB package for Ubuntu. To access the package via apt-get add the 10gen repository to /etc/apt/sources.list.</p>
+
+<pre><code>sudo sh -c "echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' &gt;&gt; /etc/apt/sources.list.d/downloads-distro.mongodb.org.list"
+</code></pre>
+
+<p>Next, import the public GPG key used to sign packages contained in the 10gen repository.</p>
+
+<pre><code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+</code></pre>
+
+<p>Run apt-get to retrieve the list of package files provided by the the new source respository.</p>
+
+<pre><code>sudo apt-get update
+</code></pre>
+
+<h2>Install mongodb-10gen</h2>
+
+<p>Installation via the 10gen repository requires one command to download, install and automatically start MongoDB.</p>
+
+<pre><code>sudo apt-get -y install mongodb-10gen
+</code></pre>
+
+<h1>Generic Linux Binaries</h1>
+
+<h2>Installation</h2>
+
+<pre><code>cd ~/
+git clone git://github.com/cvee/ubuntu-env.git
+sudo adduser --system --group --home /opt/mongodb --shell /bin/false --no-create-home mongodb
+sudo mkdir /opt/mongodb
+sudo mkdir /etc/mongodb
+sudo mkdir /var/opt/mongodb
+sudo mkdir /var/opt/mongodb/db
+sudo mkdir /var/opt/mongodb/log
+sudo chown -R mongodb:mongodb /var/opt/mongodb
+sudo cp ~/ubuntu-env/etc/mongodb/mongodb.conf /etc/mongodb/mongodb.conf
+sudo cp ~/ubuntu-env/etc/init/mongodb.conf /etc/init/mongodb.conf
+cd ~/
+curl -O http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.0.1.tgz
+sudo tar -C /opt/mongodb -xzf mongodb-linux-x86_64-2.0.1.tgz
+cd /opt/mongodb
+sudo mv mongodb-linux-x86_64-2.0.1 2.0.1
+sudo ln -s 2.0.1 latest
+sudo service mongodb start
+</code></pre>
+
+<h2>Upgrade</h2>
+
+<pre><code>sudo service mongodb stop
+cd ~/
+curl -O http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.0.1.tgz
+sudo tar -C /opt/mongodb -xzf mongodb-linux-x86_64-2.0.1.tgz
+cd /opt/mongodb
+sudo mv mongodb-linux-x86_64-2.0.1 2.0.1
+sudo unlink latest &amp;&amp; sudo ln -s 2.0.1 latest
+sudo service mongodb start
+</code></pre>
+
+<h1>More Information</h1>
+
+<ul>
+<li><a href="http://www.mongodb.org/">mongoDB</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Configuring CouchDB on Ubuntu]]></title>
+    <link href="http://cvee.github.com/blog/2011/11/28/configuring-couchdb-on-ubuntu/"/>
+    <updated>2011-11-28T00:00:00-05:00</updated>
+    <id>http://cvee.github.com/blog/2011/11/28/configuring-couchdb-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>To ensure an Ubuntu system is using the lastest stable version of CouchDB currently requires building from source. This tutorial describes how to download, build, install and configure the lastest stable version of CouchDB on an Ubuntu system.</p>
+
+<h1>Install Dependencies</h1>
+
+<p>Install the packages needed to download, build and install CouchDB.</p>
+
+<pre><code>sudo apt-get -y install build-essential autoconf automake libtool erlang libicu-dev libmozjs-dev libcurl4-openssl-dev
+</code></pre>
+
+<h1>Install CouchDB</h1>
+
+<h2>Get the Source</h2>
+
+<p>Download and extract the CouchDB 1.1.1 source code.</p>
+
+<pre><code>curl -O http://www.apache.org/dyn/closer.cgi?path=/couchdb/1.1.1/apache-couchdb-1.1.1.tar.gz
+tar -C /tmp -xzf apache-couchdb-1.1.1.tar.gz
+cd /tmp/apache-couchdb-1.1.1
+</code></pre>
+
+<p>OR</p>
+
+<p>Clone the latest CouchDB source code:</p>
+
+<pre><code>git clone http://git-wip-us.apache.org/repos/asf/couchdb.git /tmp/couchdb
+</code></pre>
+
+<p>Checkout the 1.2.x branch:</p>
+
+<pre><code>cd /tmp/couchdb
+git checkout --track -b 1.2.x origin/1.2.x
+</code></pre>
+
+<p>Run <code>bootstrap</code> to create the <code>configure</code> script:</p>
+
+<pre><code>./bootstrap
+</code></pre>
+
+<h2>Build and Install</h2>
+
+<p>Build the source and install the compiled binaries.</p>
+
+<pre><code>./configure
+make &amp;&amp; sudo make install
+</code></pre>
+
+<p>Create a user account dedicated for CouchDB:</p>
+
+<pre><code>sudo adduser --system --home /usr/local/var/lib/couchdb --no-create-home --shell /bin/bash --group --gecos "CouchDB Administrator" couchdb
+</code></pre>
+
+<p>Change the ownership of the CouchDB directories:</p>
+
+<pre><code>sudo chown -R couchdb:couchdb /usr/local/etc/couchdb
+sudo chown -R couchdb:couchdb /usr/local/var/lib/couchdb
+sudo chown -R couchdb:couchdb /usr/local/var/log/couchdb
+sudo chown -R couchdb:couchdb /usr/local/var/run/couchdb
+</code></pre>
+
+<p>Change the permission of the CouchDB directories:</p>
+
+<pre><code>sudo chmod 0770 /usr/local/etc/couchdb
+sudo chmod 0770 /usr/local/var/lib/couchdb
+sudo chmod 0770 /usr/local/var/log/couchdb
+sudo chmod 0770 /usr/local/var/run/couchdb
+</code></pre>
+
+<p>Create a administrator, edit /usr/local/etc/couchdb/local.ini and add the section:</p>
+
+<pre><code>[admins]
+root = &lt;password&gt;
+</code></pre>
+
+<p>To start the daemon on boot, copy the init script to /etc/init.d</p>
+
+<pre><code>sudo cp /usr/local/etc/init.d/couchdb /etc/init.d
+sudo update-rc.d couchdb defaults
+</code></pre>
+
+<p>Manually start CouchDB:</p>
+
+<pre><code>sudo service couchdb start
+</code></pre>
+
+<h1>More Information</h1>
+
+<ul>
+<li><a href="http://couchdb.apache.org">Apache CouchDB</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Running node.js Apps with Upstart]]></title>
+    <link href="http://cvee.github.com/blog/2011/11/21/running-node-apps-with-upstart/"/>
+    <updated>2011-11-21T00:00:00-05:00</updated>
+    <id>http://cvee.github.com/blog/2011/11/21/running-node-apps-with-upstart</id>
+    <content type="html"><![CDATA[<p>After developing my first node.js app, I realized the need to run it as a system service. Specifically I wanted to have the app start during boot, run in the background and, if the process died unexpectedly, have it respawn automatically. While researching how to do this on an Ubuntu system I came across Upstart.</p>
+
+<h1>What is Upstart?</h1>
+
+<p>The official Upstart website defines Upstart as &#8220;an event-based replacement for the /sbin/init daemon which handles starting of tasks and services during boot, stopping them during shutdown and supervising them while the system is running.&#8221; Through the creation of custom configuration files, called job definitions,  we are able to &#8220;daemonize&#8221; a node.js app by assigning it behaviors common to system services.</p>
+
+<h1>Upstart Job Definitions</h1>
+
+<p>Upstart Job Definitions are are defined in files located in /etc/init. The name of a job is the definition filename without the .conf extension. The following is an example job definition for a node.js app:</p>
+
+<pre><code># node-upstart - Example Upstart job definition for a node.js based app
+#
+
+description     "Example Upstart job definition for a node.js based app"
+author          "Chris Verwymeren"
+
+# When to start the service
+start on runlevel [2345]
+
+# When to stop the service
+stop on runlevel [06]
+
+# Prepare the environment
+#   Create directories for logging and process management
+#   Change ownership to the user running the process
+pre-start script
+    mkdir -p /var/opt/node
+    mkdir -p /var/opt/node/log
+    mkdir -p /var/opt/node/run
+    chown -R node:node /var/opt/node
+end script
+
+# If the process quits unexpectadly trigger a respawn
+respawn
+
+# Start the process
+exec start-stop-daemon --start --chuid node --make-pidfile \
+  --pidfile /var/opt/node/run/node-upstart.pid \
+  --exec /home/node/local/node/bin/node -- \
+  /home/node/apps/node-upstart.js &gt;&gt; \
+  /var/opt/node/log/node-upstart.log 2&gt;&amp;1
+</code></pre>
+
+<p>The first section provides information about the job definition. In this instance a description of the app is provided along with the name and email address of the author who created the job definition. Similar to most other configuration files, comments are initiated by placing a # symbol at the beginning of a line of text.</p>
+
+<pre><code># node-upstart - Example Upstart job definition for a node.js based app
+#
+
+description     "Example Upstart job definition for a node.js based app"
+author          "Chris Verwymeren &lt;cvee@me.com&gt;"
+</code></pre>
+
+<p>The next section provides information on when to start and stop the job. In this example, the process will be automatically started on the various Multi-User Modes (2-5) and stopped on Halt (0) or Reboot (6).</p>
+
+<pre><code># When to start the service
+start on runlevel [2345]
+
+# When to stop the service
+stop on runlevel [06]
+</code></pre>
+
+<p><code>pre-start</code> allows the environment to be prepared before a job is started. In this example, the directories for logging and process management are created and assigned ownership.</p>
+
+<pre><code># Prepare the environment
+#   Create directories for logging and process management
+#   Change ownership to the user running the process
+pre-start script
+    mkdir -p /var/opt/node
+    mkdir -p /var/opt/node/log
+    mkdir -p /var/opt/node/run
+    chown -R node:node /var/opt/node
+end script
+</code></pre>
+
+<p>Using the respawn command will restart the job if it quits unexpectadly.</p>
+
+<pre><code># If the process quits unexpectadly trigger a respawn
+respawn
+</code></pre>
+
+<p>The last section handles the details of the job command which is run during the &#8220;start&#8221; action.</p>
+
+<pre><code># Start the process
+exec start-stop-daemon --start --chuid node --make-pidfile \
+  --pidfile /var/opt/node/run/node-upstart.pid \
+  --exec /home/node/local/node/bin/node -- \
+  /home/node/apps/node-upstart.js &gt;&gt; \
+  /var/opt/node/log/node-upstart.log 2&gt;&amp;1
+</code></pre>
+
+<p>In the example above, the job command is run under the node user (<code>--chuid node</code>), a process id file is created at a specific location (&#8211;make-pidfile &#8211;pidfile /var/opt/node/run/node-upstart.pid) and the node.js app is executed with stdout and stderr logged to a file (&#8211;exec /home/node/local/node/bin/node &#8211; /home/node/apps/node-upstart.js >> /var/opt/node/log/node-upstart.log 2>&amp;1).</p>
+
+<p>In the above example, the name of the job definition file is <code>node-upstart.conf</code> therefore the name of the job is <code>node-upstart</code>. When using command line utilites to interact with the job, use the job name.</p>
+
+<p>After creating a job definition save the file to /etc/init. Then, use <code>initctl</code> to verify the job has been recognized by Upstart.</p>
+
+<pre><code>$ initctl list | grep node-upstart
+node-upstart stop/waiting
+</code></pre>
+
+<h1>Manual Job Control</h1>
+
+<p>As an added bonus, Upstart allows for services to be controlled manually using the commands <code>start</code>,  <code>stop</code> and <code>status</code>. For example, an administrator can start, stop and determine the status of the above job definition using the following commands:</p>
+
+<pre><code>$ sudo start node-upstart
+node-upstart start/running, process 3410
+$ sudo status node-upstart
+node-upstart start/running, process 3410
+$ sudo stop node-upstart
+node-upstart stop/waiting
+$ sudo status node-upstart
+node-upstart stop/waiting
+</code></pre>
+
+<h1>More Information</h1>
+
+<ul>
+<li><a href="http://upstart.ubuntu.com">Upstart</a></li>
+<li><a href="http://upstart.ubuntu.com/cookbook">Upstart Cookbook</a></li>
+<li><a href="https://github.com/cvee/node-upstart">Examples</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Configuring node.js, npm and mongoDB on Ubuntu]]></title>

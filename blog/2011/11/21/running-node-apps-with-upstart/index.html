@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Running node.js Apps with Upstart - Chris Verwymeren's Blog</title>
+  <meta name="author" content="Chris Verwymeren">
+
+  
+  <meta name="description" content="After developing my first node.js app, I realized the need to run it as a system service. Specifically I wanted to have the app start during boot, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://cvee.github.com/blog/2011/11/21/running-node-apps-with-upstart">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Chris Verwymeren's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Chris Verwymeren's Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:cvee.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Running node.js Apps With Upstart</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-21T00:00:00-05:00" pubdate data-updated="true">Nov 21<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>After developing my first node.js app, I realized the need to run it as a system service. Specifically I wanted to have the app start during boot, run in the background and, if the process died unexpectedly, have it respawn automatically. While researching how to do this on an Ubuntu system I came across Upstart.</p>
+
+<h1>What is Upstart?</h1>
+
+<p>The official Upstart website defines Upstart as &#8220;an event-based replacement for the /sbin/init daemon which handles starting of tasks and services during boot, stopping them during shutdown and supervising them while the system is running.&#8221; Through the creation of custom configuration files, called job definitions,  we are able to &#8220;daemonize&#8221; a node.js app by assigning it behaviors common to system services.</p>
+
+<h1>Upstart Job Definitions</h1>
+
+<p>Upstart Job Definitions are are defined in files located in /etc/init. The name of a job is the definition filename without the .conf extension. The following is an example job definition for a node.js app:</p>
+
+<pre><code># node-upstart - Example Upstart job definition for a node.js based app
+#
+
+description     "Example Upstart job definition for a node.js based app"
+author          "Chris Verwymeren"
+
+# When to start the service
+start on runlevel [2345]
+
+# When to stop the service
+stop on runlevel [06]
+
+# Prepare the environment
+#   Create directories for logging and process management
+#   Change ownership to the user running the process
+pre-start script
+    mkdir -p /var/opt/node
+    mkdir -p /var/opt/node/log
+    mkdir -p /var/opt/node/run
+    chown -R node:node /var/opt/node
+end script
+
+# If the process quits unexpectadly trigger a respawn
+respawn
+
+# Start the process
+exec start-stop-daemon --start --chuid node --make-pidfile \
+  --pidfile /var/opt/node/run/node-upstart.pid \
+  --exec /home/node/local/node/bin/node -- \
+  /home/node/apps/node-upstart.js &gt;&gt; \
+  /var/opt/node/log/node-upstart.log 2&gt;&amp;1
+</code></pre>
+
+<p>The first section provides information about the job definition. In this instance a description of the app is provided along with the name and email address of the author who created the job definition. Similar to most other configuration files, comments are initiated by placing a # symbol at the beginning of a line of text.</p>
+
+<pre><code># node-upstart - Example Upstart job definition for a node.js based app
+#
+
+description     "Example Upstart job definition for a node.js based app"
+author          "Chris Verwymeren &lt;cvee@me.com&gt;"
+</code></pre>
+
+<p>The next section provides information on when to start and stop the job. In this example, the process will be automatically started on the various Multi-User Modes (2-5) and stopped on Halt (0) or Reboot (6).</p>
+
+<pre><code># When to start the service
+start on runlevel [2345]
+
+# When to stop the service
+stop on runlevel [06]
+</code></pre>
+
+<p><code>pre-start</code> allows the environment to be prepared before a job is started. In this example, the directories for logging and process management are created and assigned ownership.</p>
+
+<pre><code># Prepare the environment
+#   Create directories for logging and process management
+#   Change ownership to the user running the process
+pre-start script
+    mkdir -p /var/opt/node
+    mkdir -p /var/opt/node/log
+    mkdir -p /var/opt/node/run
+    chown -R node:node /var/opt/node
+end script
+</code></pre>
+
+<p>Using the respawn command will restart the job if it quits unexpectadly.</p>
+
+<pre><code># If the process quits unexpectadly trigger a respawn
+respawn
+</code></pre>
+
+<p>The last section handles the details of the job command which is run during the &#8220;start&#8221; action.</p>
+
+<pre><code># Start the process
+exec start-stop-daemon --start --chuid node --make-pidfile \
+  --pidfile /var/opt/node/run/node-upstart.pid \
+  --exec /home/node/local/node/bin/node -- \
+  /home/node/apps/node-upstart.js &gt;&gt; \
+  /var/opt/node/log/node-upstart.log 2&gt;&amp;1
+</code></pre>
+
+<p>In the example above, the job command is run under the node user (<code>--chuid node</code>), a process id file is created at a specific location (&#8211;make-pidfile &#8211;pidfile /var/opt/node/run/node-upstart.pid) and the node.js app is executed with stdout and stderr logged to a file (&#8211;exec /home/node/local/node/bin/node &#8211; /home/node/apps/node-upstart.js >> /var/opt/node/log/node-upstart.log 2>&amp;1).</p>
+
+<p>In the above example, the name of the job definition file is <code>node-upstart.conf</code> therefore the name of the job is <code>node-upstart</code>. When using command line utilites to interact with the job, use the job name.</p>
+
+<p>After creating a job definition save the file to /etc/init. Then, use <code>initctl</code> to verify the job has been recognized by Upstart.</p>
+
+<pre><code>$ initctl list | grep node-upstart
+node-upstart stop/waiting
+</code></pre>
+
+<h1>Manual Job Control</h1>
+
+<p>As an added bonus, Upstart allows for services to be controlled manually using the commands <code>start</code>,  <code>stop</code> and <code>status</code>. For example, an administrator can start, stop and determine the status of the above job definition using the following commands:</p>
+
+<pre><code>$ sudo start node-upstart
+node-upstart start/running, process 3410
+$ sudo status node-upstart
+node-upstart start/running, process 3410
+$ sudo stop node-upstart
+node-upstart stop/waiting
+$ sudo status node-upstart
+node-upstart stop/waiting
+</code></pre>
+
+<h1>More Information</h1>
+
+<ul>
+<li><a href="http://upstart.ubuntu.com">Upstart</a></li>
+<li><a href="http://upstart.ubuntu.com/cookbook">Upstart Cookbook</a></li>
+<li><a href="https://github.com/cvee/node-upstart">Examples</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Chris Verwymeren</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-21T00:00:00-05:00" pubdate data-updated="true">Nov 21<span>st</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cvee.github.com/blog/2011/11/21/running-node-apps-with-upstart/" data-via="" data-counturl="http://cvee.github.com/blog/2011/11/21/running-node-apps-with-upstart/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/" title="Previous Post: Configuring node.js, npm and mongoDB on Ubuntu">&laquo; Configuring node.js, npm and mongoDB on Ubuntu</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/11/28/configuring-couchdb-on-ubuntu/" title="next Post: Configuring CouchDB on Ubuntu">Configuring CouchDB on Ubuntu &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/05/configuring-mongodb-on-ubuntu/">Configuring MongoDB on Ubuntu</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/28/configuring-couchdb-on-ubuntu/">Configuring CouchDB on Ubuntu</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/21/running-node-apps-with-upstart/">Running node.js Apps with Upstart</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/">Configuring node.js, npm and mongoDB on Ubuntu</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - Chris Verwymeren -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
