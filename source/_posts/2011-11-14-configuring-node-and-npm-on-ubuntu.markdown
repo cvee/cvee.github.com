@@ -44,7 +44,13 @@ For security, the 'node' user account is created with password logins disabled. 
     sudo chown node:node /home/node/.ssh/authorized_keys
     sudo chmod 600 /home/node/.ssh/authorized_keys
 
-# More Information
+## Installation Script
+
+To automate installation I've collected the above steps into a shell script. To install node.js and npm using this method download and run the shell script using the following command:
+
+    wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install-node.sh | sudo sh
+
+## More Information
 
 * [node.js](http://nodejs.org/)
 * [npm](http://npmjs.org/)
