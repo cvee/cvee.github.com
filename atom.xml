@@ -1,16 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[Chris Verwymeren's Blog]]></title>
   <link href="http://cvee.github.com/atom.xml" rel="self"/>
   <link href="http://cvee.github.com/"/>
-  <updated>2011-12-07T14:08:16-05:00</updated>
+  <updated>2011-12-07T14:30:56-05:00</updated>
   <id>http://cvee.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Chris Verwymeren]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Configuring node.js, npm and mongoDB on Ubuntu]]></title>
+    <link href="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/"/>
+    <updated>2011-11-14T00:00:00-05:00</updated>
+    <id>http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>The rapid pace of development on node.js, npm and mongoDB has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the official Ubuntu provided node.js, npm and mongoDB packages quickly become outdated. To ensure an Ubuntu system is using the lastest stable (or unstable) versions of node.js, npm and mongDB currently requires an extra bit of work. This tutorial describes how to install the lastest stable versions of node.js, npm and mongoDB on an Ubuntu system.</p>
+
+<h2>Install Developer Packages</h2>
+
+<p>Install the packages needed to download, build and install node.js and npm.</p>
+
+<pre><code>sudo apt-get -y install build-essential libssl-dev openssh-server pkg-config curl git-core
+</code></pre>
+
+<h2>node.js Installation</h2>
+
+<pre><code>cd ~/
+curl -O http://nodejs.org/dist/v0.6.3/node-v0.6.3.tar.gz
+tar -C /tmp -xzf node-v0.6.3.tar.gz
+cd /tmp/node-v0.6.3
+./configure
+make -j2 &amp;&amp; sudo make install
+cd ~/
+rm -rf /tmp/node-v0.6.3
+</code></pre>
+
+<h2>npm Installation</h2>
+
+<p>As of node.js 0.6.3, npm is included in packages/installers and installed on make install. The following installation instructions are included for historical purposes only.</p>
+
+<pre><code>curl http://npmjs.org/install.sh | sudo sh
+</code></pre>
+
+<h2>Short Cut</h2>
+
+<p>So you&#8217;ve made this far through the tutorial and are thinking, &#8220;That&#8217;s a lot of steps!&#8221;. To simplify things I&#8217;ve created a shell script to automatically install mongoDB, node.js and npm. Download and run the shell script using the following command:</p>
+
+<pre><code>wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install.sh | sudo sh
+</code></pre>
+
+<h2>Create a Dedicated User Account</h2>
+
+<p>To avoid the security concerns caused by running applications as root, you may want to create a user responsible for running node apps.</p>
+
+<pre><code>sudo adduser --home /home/node --shell /bin/bash --disabled-password node
+sudo mkdir /home/node/.ssh
+sudo chown node:node /home/node/.ssh
+sudo chmod 700 /home/node/.ssh
+</code></pre>
+
+<p>For security, the &#8216;node&#8217; user account is created with password logins disabled. In order to login via SSH as &#8216;node&#8217;, creat or edit the file /home/node/.ssh/authorized_keys then copy in your public key. Save /home/node/.ssh/authorized_keys and assign it the correct access permissions.</p>
+
+<pre><code>sudo chown node:node /home/node/.ssh/authorized_keys
+sudo chmod 600 /home/node/.ssh/authorized_keys
+</code></pre>
+
+<h1>More Information</h1>
+
+<ul>
+<li><a href="http://nodejs.org/">node.js</a></li>
+<li><a href="http://npmjs.org/">npm</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
 </feed>

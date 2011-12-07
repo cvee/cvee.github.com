@@ -1,6 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/</loc>
+        <lastmod>2011-12-07T14:04:38-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://cvee.github.com/blog/archives/</loc>
         <lastmod>2011-12-07T14:04:38-05:00</lastmod>
     </url>
