@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Chris Verwymeren's Blog]]></title>
+  <title><![CDATA[@cvee]]></title>
   <link href="http://cvee.github.com/atom.xml" rel="self"/>
   <link href="http://cvee.github.com/"/>
-  <updated>2011-12-07T17:17:40-05:00</updated>
+  <updated>2011-12-07T17:20:10-05:00</updated>
   <id>http://cvee.github.com/</id>
   <author>
     <name><![CDATA[Chris Verwymeren]]></name>
