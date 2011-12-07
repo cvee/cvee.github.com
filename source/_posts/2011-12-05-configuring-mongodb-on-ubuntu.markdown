@@ -65,6 +65,12 @@ Installation via the 10gen repository requires one command to download, install 
     sudo unlink latest && sudo ln -s 2.0.1 latest
     sudo service mongodb start
 
+## Short Cut
+
+So you've made this far through the tutorial and are thinking, "That's a lot of steps!". To simplify things I've created a shell script to automatically install mongoDB. Download and run the shell script using the following command:
+
+    wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install-mongodb.sh | sudo sh
+
 # More Information
 
 * [mongoDB](http://www.mongodb.org/)
