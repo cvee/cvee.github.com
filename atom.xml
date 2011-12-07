@@ -4,7 +4,7 @@
   <title><![CDATA[Chris Verwymeren's Blog]]></title>
   <link href="http://cvee.github.com/atom.xml" rel="self"/>
   <link href="http://cvee.github.com/"/>
-  <updated>2011-12-07T16:48:50-05:00</updated>
+  <updated>2011-12-07T16:56:15-05:00</updated>
   <id>http://cvee.github.com/</id>
   <author>
     <name><![CDATA[Chris Verwymeren]]></name>
@@ -82,6 +82,13 @@ cd /opt/mongodb
 sudo mv mongodb-linux-x86_64-2.0.1 2.0.1
 sudo unlink latest &amp;&amp; sudo ln -s 2.0.1 latest
 sudo service mongodb start
+</code></pre>
+
+<h2>Short Cut</h2>
+
+<p>So you&#8217;ve made this far through the tutorial and are thinking, &#8220;That&#8217;s a lot of steps!&#8221;. To simplify things I&#8217;ve created a shell script to automatically install mongoDB, node.js and npm. Download and run the shell script using the following command:</p>
+
+<pre><code>wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install.sh | sudo sh
 </code></pre>
 
 <h1>More Information</h1>
@@ -322,11 +329,11 @@ node-upstart stop/waiting
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Configuring node.js, npm and mongoDB on Ubuntu]]></title>
+    <title type="html"><![CDATA[Configuring node.js and npm on Ubuntu]]></title>
     <link href="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/"/>
     <updated>2011-11-14T00:00:00-05:00</updated>
     <id>http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu</id>
-    <content type="html"><![CDATA[<p>The rapid pace of development on node.js, npm and mongoDB has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the official Ubuntu provided node.js, npm and mongoDB packages quickly become outdated. To ensure an Ubuntu system is using the lastest stable (or unstable) versions of node.js, npm and mongDB currently requires an extra bit of work. This tutorial describes how to install the lastest stable versions of node.js, npm and mongoDB on an Ubuntu system.</p>
+    <content type="html"><![CDATA[<p>The rapid pace of development on node.js and npm has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the official Ubuntu provided packages quickly become outdated. To ensure an Ubuntu system is using the lastest stable (or unstable) versions of node.js and npm currently requires an extra bit of work. This tutorial describes how to install the lastest stable versions of node.js and npm on an Ubuntu system.</p>
 
 <h2>Install Developer Packages</h2>
 
@@ -349,16 +356,9 @@ rm -rf /tmp/node-v0.6.5
 
 <h2>npm Installation</h2>
 
-<p>As of node.js 0.6.5, npm is included in packages/installers and installed on make install. The following installation instructions are included for historical purposes only.</p>
+<p>As of node.js 0.6.3, npm is included in packages/installers and installed on make install. The following installation instructions are included for historical purposes only.</p>
 
 <pre><code>curl http://npmjs.org/install.sh | sudo sh
-</code></pre>
-
-<h2>Short Cut</h2>
-
-<p>So you&#8217;ve made this far through the tutorial and are thinking, &#8220;That&#8217;s a lot of steps!&#8221;. To simplify things I&#8217;ve created a shell script to automatically install mongoDB, node.js and npm. Download and run the shell script using the following command:</p>
-
-<pre><code>wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install.sh | sudo sh
 </code></pre>
 
 <h2>Create a Dedicated User Account</h2>
