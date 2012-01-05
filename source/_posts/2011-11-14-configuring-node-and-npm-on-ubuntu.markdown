@@ -15,10 +15,8 @@ Install the packages needed to download, build and install node.js and npm.
 
 ## node.js Installation
 
-    cd ~/
-    curl -O http://nodejs.org/dist/v0.6.5/node-v0.6.5.tar.gz
-    tar -C /tmp -xzf node-v0.6.5.tar.gz
-    cd /tmp/node-v0.6.5
+    curl -L http://nodejs.org/dist/v0.6.6/node-v0.6.6.tar.gz | tar -C /tmp -xzf -
+    cd /tmp/node-v0.6.6
     ./configure
     make -j2 && sudo make install
     cd ~/
@@ -26,7 +24,7 @@ Install the packages needed to download, build and install node.js and npm.
 
 ## npm Installation
 
-As of node.js 0.6.3, npm is included in packages/installers and installed on make install. The following installation instructions are included for historical purposes only.
+As of node.js 0.6.3, npm is included and installed on make install. The following installation instructions are included for historical purposes only.
 
     curl http://npmjs.org/install.sh | sudo sh
 
@@ -35,13 +33,14 @@ As of node.js 0.6.3, npm is included in packages/installers and installed on mak
 To avoid the security concerns caused by running applications as root, you may want to create a user responsible for running node apps.
 
     sudo adduser --home /home/node --shell /bin/bash --disabled-password node
-    sudo mkdir /home/node/.ssh
-    sudo chown node:node /home/node/.ssh
-    sudo chmod 700 /home/node/.ssh
-    
+
+Become the user and generate an SSH keypair:
+
+    sudo su - node
+    ssh-keygen -b 4096 -t rsa
+
 For security, the 'node' user account is created with password logins disabled. In order to login via SSH as 'node', create or edit the file /home/node/.ssh/authorized_keys then copy in your public key. Save /home/node/.ssh/authorized_keys and assign it the correct access permissions.
 
-    sudo chown node:node /home/node/.ssh/authorized_keys
     sudo chmod 600 /home/node/.ssh/authorized_keys
 
 ## Installation Script
