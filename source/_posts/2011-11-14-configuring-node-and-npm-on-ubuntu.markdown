@@ -41,7 +41,7 @@ Become the user and generate an SSH keypair:
 
 For security, the 'node' user account is created with password logins disabled. In order to login via SSH as 'node', create or edit the file /home/node/.ssh/authorized_keys then copy in your public key. Save /home/node/.ssh/authorized_keys and assign it the correct access permissions.
 
-    sudo chmod 600 /home/node/.ssh/authorized_keys
+    chmod 600 /home/node/.ssh/authorized_keys
 
 ## Installation Script
 
