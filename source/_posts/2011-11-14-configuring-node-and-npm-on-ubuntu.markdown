@@ -15,8 +15,8 @@ Install the packages needed to download, build and install node.js and npm.
 
 ## node.js Installation
 
-    curl -L http://nodejs.org/dist/v0.6.6/node-v0.6.6.tar.gz | tar -C /tmp -xzf -
-    cd /tmp/node-v0.6.6
+    curl -L http://nodejs.org/dist/v0.6.7/node-v0.6.7.tar.gz | tar -C /tmp -xzf -
+    cd /tmp/node-v0.6.7
     ./configure
     make -j2 && sudo make install
     cd ~/
@@ -39,9 +39,9 @@ Become the user and generate an SSH keypair:
     sudo su - node
     ssh-keygen -b 4096 -t rsa
 
-For security, the 'node' user account is created with password logins disabled. In order to login via SSH as 'node', create or edit the file /home/node/.ssh/authorized_keys then copy in your public key. Save /home/node/.ssh/authorized_keys and assign it the correct access permissions.
+For security, the user account is created with password logins disabled. In order to login via SSH, create or edit the file ~/.ssh/authorized_keys, copy in your public key, save ~/.ssh/authorized_keys and assign correct access permissions.
 
-    chmod 600 /home/node/.ssh/authorized_keys
+    chmod 600 ~/.ssh/authorized_keys
 
 ## Installation Script
 
