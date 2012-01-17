@@ -13,7 +13,7 @@ The following instructions cover installing and upgrading MongoDB using two diff
 
 ## Add 10gen Repository
 
-10gen, the creator of mongoDB, publishes a mongoDB package for Ubuntu. To access the package via apt-get add the 10gen repository to /etc/apt/sources.list.
+10gen, the creator of MongoDB, publishes a MongoDB package for Ubuntu. To access the package via apt-get add the 10gen repository to /etc/apt/sources.list.
 
     sudo sh -c "echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' >> /etc/apt/sources.list.d/downloads-distro.mongodb.org.list"
 
@@ -30,6 +30,12 @@ Run apt-get to retrieve the list of package files provided by the the new source
 Installation via the 10gen repository requires one command to download, install and automatically start MongoDB.
 
     sudo apt-get -y install mongodb-10gen
+
+## Installation Script
+
+So you've made this far through the tutorial and are thinking, "That's a lot of steps!". To simplify things I've created a shell script to automatically install MongoDB. Download and run the shell script using the following command:
+
+    wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install-mongodb.sh | sudo sh
 
 # Generic Linux Binaries
 
@@ -65,12 +71,6 @@ Installation via the 10gen repository requires one command to download, install 
     sudo unlink latest && sudo ln -s 2.0.1 latest
     sudo service mongodb start
 
-## Short Cut
-
-So you've made this far through the tutorial and are thinking, "That's a lot of steps!". To simplify things I've created a shell script to automatically install mongoDB. Download and run the shell script using the following command:
-
-    wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install-mongodb.sh | sudo sh
-
 # More Information
 
-* [mongoDB](http://www.mongodb.org/)
+* [MongoDB](http://www.mongodb.org/)
