@@ -4,7 +4,7 @@
   <title><![CDATA[@cvee]]></title>
   <link href="http://cvee.github.com/atom.xml" rel="self"/>
   <link href="http://cvee.github.com/"/>
-  <updated>2011-12-07T17:20:10-05:00</updated>
+  <updated>2012-01-17T09:10:05-05:00</updated>
   <id>http://cvee.github.com/</id>
   <author>
     <name><![CDATA[Chris Verwymeren]]></name>
@@ -344,10 +344,8 @@ node-upstart stop/waiting
 
 <h2>node.js Installation</h2>
 
-<pre><code>cd ~/
-curl -O http://nodejs.org/dist/v0.6.5/node-v0.6.5.tar.gz
-tar -C /tmp -xzf node-v0.6.5.tar.gz
-cd /tmp/node-v0.6.5
+<pre><code>curl -L http://nodejs.org/dist/v0.6.7/node-v0.6.7.tar.gz | tar -C /tmp -xzf -
+cd /tmp/node-v0.6.7
 ./configure
 make -j2 &amp;&amp; sudo make install
 cd ~/
@@ -356,7 +354,7 @@ rm -rf /tmp/node-v0.6.5
 
 <h2>npm Installation</h2>
 
-<p>As of node.js 0.6.3, npm is included in packages/installers and installed on make install. The following installation instructions are included for historical purposes only.</p>
+<p>As of node.js 0.6.3, npm is included and installed on make install. The following installation instructions are included for historical purposes only.</p>
 
 <pre><code>curl http://npmjs.org/install.sh | sudo sh
 </code></pre>
@@ -366,15 +364,17 @@ rm -rf /tmp/node-v0.6.5
 <p>To avoid the security concerns caused by running applications as root, you may want to create a user responsible for running node apps.</p>
 
 <pre><code>sudo adduser --home /home/node --shell /bin/bash --disabled-password node
-sudo mkdir /home/node/.ssh
-sudo chown node:node /home/node/.ssh
-sudo chmod 700 /home/node/.ssh
 </code></pre>
 
-<p>For security, the &#8216;node&#8217; user account is created with password logins disabled. In order to login via SSH as &#8216;node&#8217;, create or edit the file /home/node/.ssh/authorized_keys then copy in your public key. Save /home/node/.ssh/authorized_keys and assign it the correct access permissions.</p>
+<p>Become the user and generate an SSH keypair:</p>
 
-<pre><code>sudo chown node:node /home/node/.ssh/authorized_keys
-sudo chmod 600 /home/node/.ssh/authorized_keys
+<pre><code>sudo su - node
+ssh-keygen -b 4096 -t rsa
+</code></pre>
+
+<p>For security, the user account is created with password logins disabled. In order to login via SSH, create or edit the file ~/.ssh/authorized_keys, copy in your public key, save ~/.ssh/authorized_keys and assign correct access permissions.</p>
+
+<pre><code>chmod 600 ~/.ssh/authorized_keys
 </code></pre>
 
 <h2>Installation Script</h2>
