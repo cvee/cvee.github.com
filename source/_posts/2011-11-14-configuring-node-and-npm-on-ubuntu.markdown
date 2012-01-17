@@ -20,7 +20,7 @@ Install the packages needed to download, build and install node.js and npm.
     ./configure
     make -j2 && sudo make install
     cd ~/
-    rm -rf /tmp/node-v0.6.5
+    rm -rf /tmp/node-v0.6.7
 
 ## npm Installation
 
