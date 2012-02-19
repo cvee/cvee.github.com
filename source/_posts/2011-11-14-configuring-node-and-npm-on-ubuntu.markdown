@@ -15,12 +15,12 @@ Install the packages needed to download, build and install node.js and npm.
 
 ## node.js Installation
 
-    curl -L http://nodejs.org/dist/v0.6.7/node-v0.6.7.tar.gz | tar -C /tmp -xzf -
-    cd /tmp/node-v0.6.7
+    curl -L http://nodejs.org/dist/v0.6.11/node-v0.6.11.tar.gz | tar -C /tmp -xzf -
+    cd /tmp/node-v0.6.11
     ./configure
     make -j2 && sudo make install
     cd ~/
-    rm -rf /tmp/node-v0.6.7
+    rm -rf /tmp/node-v0.6.11
 
 ## npm Installation
 
