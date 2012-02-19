@@ -5,11 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Configuring node.js and npm on Ubuntu - @cvee</title>
+  <title>Chris Verwymeren Resume - @cvee</title>
   <meta name="author" content="Chris Verwymeren">
 
   
-  <meta name="description" content="The rapid pace of development on node.js and npm has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the official &hellip;">
+  <meta name="description" content="Chris Verwymeren Resume Chris Verwymeren +1 (415) 967-2048
+cvee@me.com
+cvee.github.com
+@cvee Employment iStrategyLabs; Washington, DC
+Chief &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu">
+  <link rel="canonical" href="http://cvee.github.com/about/resume.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,139 +75,110 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Configuring node.js and Npm on Ubuntu</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-14T00:00:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
-        
-      </p>
+    <h1 class="entry-title">Chris Verwymeren Resume</h1>
     
   </header>
+  
+  <h1>Chris Verwymeren</h1>
 
+<p><a href="tel:14159672048">+1 (415) 967-2048</a><br/>
+<a href="mailto:cvee@me.com">cvee@me.com</a><br/>
+<a href="http://cvee.github.com">cvee.github.com</a><br/>
+<a href="https://twitter.com/cvee">@cvee</a></p>
 
-<div class="entry-content"><p>The rapid pace of development on node.js and npm has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the official Ubuntu provided packages quickly become outdated. To ensure an Ubuntu system is using the lastest stable (or unstable) versions of node.js and npm currently requires an extra bit of work. This tutorial describes how to install the lastest stable versions of node.js and npm on an Ubuntu system.</p>
+<h1>Employment</h1>
 
-<h2>Install Developer Packages</h2>
-
-<p>Install the packages needed to download, build and install node.js and npm.</p>
-
-<pre><code>sudo apt-get -y install build-essential libssl-dev openssh-server pkg-config curl git-core
-</code></pre>
-
-<h2>node.js Installation</h2>
-
-<pre><code>curl -L http://nodejs.org/dist/v0.6.11/node-v0.6.11.tar.gz | tar -C /tmp -xzf -
-cd /tmp/node-v0.6.11
-./configure
-make -j2 &amp;&amp; sudo make install
-cd ~/
-rm -rf /tmp/node-v0.6.11
-</code></pre>
-
-<h2>npm Installation</h2>
-
-<p>As of node.js 0.6.3, npm is included and installed on make install. The following installation instructions are included for historical purposes only.</p>
-
-<pre><code>curl http://npmjs.org/install.sh | sudo sh
-</code></pre>
-
-<h2>Create a Dedicated User Account</h2>
-
-<p>To avoid the security concerns caused by running applications as root, you may want to create a user responsible for running node apps.</p>
-
-<pre><code>sudo adduser --home /home/node --shell /bin/bash --disabled-password node
-</code></pre>
-
-<p>Become the user and generate an SSH keypair:</p>
-
-<pre><code>sudo su - node
-ssh-keygen -b 4096 -t rsa
-</code></pre>
-
-<p>For security, the user account is created with password logins disabled. In order to login via SSH, create or edit the file ~/.ssh/authorized_keys, copy in your public key, save ~/.ssh/authorized_keys and assign correct access permissions.</p>
-
-<pre><code>chmod 600 ~/.ssh/authorized_keys
-</code></pre>
-
-<h2>Installation Script</h2>
-
-<p>To automate installation I&#8217;ve collected the above steps into a shell script. To install node.js and npm using this method download and run the shell script using the following command:</p>
-
-<pre><code>wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install-node.sh | sudo sh
-</code></pre>
-
-<h2>More Information</h2>
+<p><a href="http://istrategylabs.com">iStrategyLabs</a>; Washington, DC<br/>
+<em>Chief Technology Officer 2011- Present</em></p>
 
 <ul>
-<li><a href="http://nodejs.org/">node.js</a></li>
-<li><a href="http://npmjs.org/">npm</a></li>
+<li><a href="http://digitalcapitalweek.org">Digital Capital Week 2011</a>
+
+<ul>
+<li><a href="http://ford.getgrandstand.com/">DCWeek Dashboard</a></li>
+</ul>
+</li>
+<li>Created the open-source <a href="http://nodejs.org">node.js</a> libraries <a href="https://github.com/iStrategyLabs/node-topsy">node-topsy</a> and <a href="https://github.com/iStrategyLabs/node-twitter">node-twitter</a>.</li>
+<li>Responsible for technology selection and software architecture design when developing products and services.</li>
 </ul>
 
-</div>
+
+<p><a href="http://madefresh.ca">Freshcode</a>; Winnipeg, MB<br/>
+<em>Software Developer 2009 - 2011</em></p>
+
+<ul>
+<li><a href="http://appbodega.com/">Bodega</a></li>
+<li><a href="http://itunes.apple.com/ca/app/drughub-medicine-cabinet-in/id421028414?mt=8">DrugHub</a></li>
+</ul>
 
 
-  <footer>
-    <p class="meta">
+<p><a href="http://tailstorm.com/">TailStorm</a>; Winnipeg, MB<br/>
+<em>Software Developer 2007 - 2009</em></p>
+
+<ul>
+<li>Designed and implemented a file transfer utility using C++, JavaScript, XUL and XPCOM.</li>
+<li>Developed a framework using the Java Native Interface (JNI) framework to provide access to C based Linux system calls from Java.</li>
+<li>Re-architected existing MySQL databases to improve and enforce data integrity.</li>
+<li>Acted as system administrator for the company Mac OS X and Linux servers.</li>
+</ul>
+
+
+<p><a href="http://avant.ca">Avant Systems Group</a>; Winnipeg, MB<br/>
+<em>Developer/Analyst</em> 2004 - 2007</p>
+
+<ul>
+<li>Developed the Zamber Suite component xDSL Profiler, a J2EE web application that monitors Digital Subscriber Line (DSL) equipment and automatically makes adjustments to achieve optimal performance.</li>
+<li>Led development on the web application component of TecNet, a full-featured circuit provisioning system used by telecommunications providers to maintain their physical and logical network infrastructures. Development was accomplished using Google Web Toolkit, Java, JavaServer Pages, HTML, Cascading Style Sheets, JavaScript and Oracle.</li>
+<li>Using C/C++, Qt and Oracle, designed and implemented enhancements to the desktop application component of TecNet targeting a Windows and Solaris environment.</li>
+</ul>
+
+
+<h1>Open Source</h1>
+
+<p><strong>Creator</strong></p>
+
+<ul>
+<li><a href="https://github.com/cvee/OpenRadarFramework">Open Radar Framework</a></li>
+<li><a href="https://github.com/cvee/rdio-framework">Rdio Framework</a></li>
+<li><a href="https://github.com/iStrategyLabs/node-topsy">node-topsy</a></li>
+<li><a href="https://github.com/iStrategyLabs/node-twitter">node-twitter</a></li>
+<li><a href="https://github.com/cvee/node-wmata">node-wmata</a></li>
+</ul>
+
+
+<p><strong>Contributor</strong></p>
+
+<ul>
+<li><a href="https://github.com/BigZaphod/Chameleon">Chameleon</a></li>
+<li><a href="https://github.com/localprojects/Change-By-Us">Change by Us</a></li>
+<li><a href="https://github.com/timburks/openradar">Open Radar</a></li>
+</ul>
+
+
+<h1>Education</h1>
+
+<p>University of Manitoba, Bachelor of Science: Computer Science (Major Co-op), 2002</p>
+
+<h1>Summary</h1>
+
+<p><strong>Languages</strong><br/>
+Objective-C, C/C++, Cascading Style Sheets (CSS), Java, JavaScript, HTML, PHP, Python, SQL, Unix Shell Scripting  <br/>
+<strong>Frameworks and Libraries</strong><br/>
+Cappuccino, Cocoa, Cocoa Touch, GHUnit, jQuery, node.js, Sparkle
+<strong>Databases</strong><br/>
+IBM DB2, Microsoft SQL Server, MongoDB, MySQL, Oracle Database 10g, Sybase<br/>
+<strong>Operating Systems</strong><br/>
+FreeBSD, IBM AIX, iOS, Linux, Mac OS X, OpenBSD, Solaris, Windows 95/98/NT/2000/XP</p>
+
+  
+    <footer>
       
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Chris Verwymeren</span></span>
-
       
-
-
-
-
-
-
-
-
+    </footer>
   
-
-
-<time datetime="2011-11-14T00:00:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/" data-via="cvee" data-counturl="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-      
-        <a class="basic-alignment right" href="/blog/2011/11/21/running-node-apps-with-upstart/" title="next Post: Running node.js Apps with Upstart">Running node.js Apps with Upstart &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
 </div>

@@ -2,7 +2,7 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/</loc>
-        <lastmod>2012-01-17T09:15:37-05:00</lastmod>
+        <lastmod>2012-02-19T16:08:03-05:00</lastmod>
     </url>
     <url>
         <loc>http://cvee.github.com/blog/2011/11/21/running-node-apps-with-upstart/</loc>
@@ -17,11 +17,19 @@
         <lastmod>2012-01-17T09:28:38-05:00</lastmod>
     </url>
     <url>
+        <loc>http://cvee.github.com/about/</loc>
+        <lastmod>2012-02-19T16:05:00-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://cvee.github.com/about/resume.html</loc>
+        <lastmod>2012-02-19T16:07:09-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://cvee.github.com/blog/archives/</loc>
-        <lastmod>2012-01-17T09:28:38-05:00</lastmod>
+        <lastmod>2012-02-19T16:08:03-05:00</lastmod>
     </url>
     <url>
         <loc>http://cvee.github.com/</loc>
-        <lastmod>2012-01-17T09:28:38-05:00</lastmod>
+        <lastmod>2012-02-19T16:08:03-05:00</lastmod>
     </url>
 </urlset>

@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Configuring node.js and npm on Ubuntu - @cvee</title>
+  <title>index - @cvee</title>
   <meta name="author" content="Chris Verwymeren">
 
   
-  <meta name="description" content="The rapid pace of development on node.js and npm has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the official &hellip;">
+  <meta name="description" content="Index Feb 19th, 2012 Feb 19th, 2012 Tweet Recent Posts Configuring MongoDB on Ubuntu Configuring CouchDB on Ubuntu Running node.js Apps with Upstart &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu">
+  <link rel="canonical" href="http://cvee.github.com/about">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,15 +71,32 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Configuring node.js and Npm on Ubuntu</h1>
-    
-    
+    <h1 class="entry-title">Index</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-19T16:05:00-05:00" pubdate data-updated="true">Feb 19<span>th</span>, 2012</time></p>
+  </header>
+  
+  
+
+  
+    <footer>
       <p class="meta">
         
+        
 
 
 
@@ -91,102 +108,13 @@
   
 
 
-<time datetime="2011-11-14T00:00:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
+<time datetime="2012-02-19T16:05:00-05:00" pubdate data-updated="true">Feb 19<span>th</span>, 2012</time>
         
       </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>The rapid pace of development on node.js and npm has resulted in frequent releases and huge improvements. As an unfortunate side-effect, the official Ubuntu provided packages quickly become outdated. To ensure an Ubuntu system is using the lastest stable (or unstable) versions of node.js and npm currently requires an extra bit of work. This tutorial describes how to install the lastest stable versions of node.js and npm on an Ubuntu system.</p>
-
-<h2>Install Developer Packages</h2>
-
-<p>Install the packages needed to download, build and install node.js and npm.</p>
-
-<pre><code>sudo apt-get -y install build-essential libssl-dev openssh-server pkg-config curl git-core
-</code></pre>
-
-<h2>node.js Installation</h2>
-
-<pre><code>curl -L http://nodejs.org/dist/v0.6.11/node-v0.6.11.tar.gz | tar -C /tmp -xzf -
-cd /tmp/node-v0.6.11
-./configure
-make -j2 &amp;&amp; sudo make install
-cd ~/
-rm -rf /tmp/node-v0.6.11
-</code></pre>
-
-<h2>npm Installation</h2>
-
-<p>As of node.js 0.6.3, npm is included and installed on make install. The following installation instructions are included for historical purposes only.</p>
-
-<pre><code>curl http://npmjs.org/install.sh | sudo sh
-</code></pre>
-
-<h2>Create a Dedicated User Account</h2>
-
-<p>To avoid the security concerns caused by running applications as root, you may want to create a user responsible for running node apps.</p>
-
-<pre><code>sudo adduser --home /home/node --shell /bin/bash --disabled-password node
-</code></pre>
-
-<p>Become the user and generate an SSH keypair:</p>
-
-<pre><code>sudo su - node
-ssh-keygen -b 4096 -t rsa
-</code></pre>
-
-<p>For security, the user account is created with password logins disabled. In order to login via SSH, create or edit the file ~/.ssh/authorized_keys, copy in your public key, save ~/.ssh/authorized_keys and assign correct access permissions.</p>
-
-<pre><code>chmod 600 ~/.ssh/authorized_keys
-</code></pre>
-
-<h2>Installation Script</h2>
-
-<p>To automate installation I&#8217;ve collected the above steps into a shell script. To install node.js and npm using this method download and run the shell script using the following command:</p>
-
-<pre><code>wget -q -O - https://raw.github.com/cvee/ubuntu-env/master/install-node.sh | sudo sh
-</code></pre>
-
-<h2>More Information</h2>
-
-<ul>
-<li><a href="http://nodejs.org/">node.js</a></li>
-<li><a href="http://npmjs.org/">npm</a></li>
-</ul>
-
-</div>
-
-
-  <footer>
-    <p class="meta">
       
+        <div class="sharing">
   
-
-<span class="byline author vcard">Posted by <span class="fn">Chris Verwymeren</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-14T00:00:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/" data-via="cvee" data-counturl="http://cvee.github.com/blog/2011/11/14/configuring-node-and-npm-on-ubuntu/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cvee.github.com/about/index.html" data-via="cvee" data-counturl="http://cvee.github.com/about/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -196,14 +124,9 @@ ssh-keygen -b 4096 -t rsa
   
 </div>
 
-    
-    <p class="meta">
       
-      
-        <a class="basic-alignment right" href="/blog/2011/11/21/running-node-apps-with-upstart/" title="next Post: Running node.js Apps with Upstart">Running node.js Apps with Upstart &raquo;</a>
-      
-    </p>
-  </footer>
+    </footer>
+  
 </article>
 
 </div>
