@@ -1,6 +1,5 @@
 ---
 layout: page
-title: "Chris Verwymeren Resume"
 comments: false
 sharing: false
 footer: true
