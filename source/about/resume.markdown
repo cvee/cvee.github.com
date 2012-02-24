@@ -5,14 +5,14 @@ sharing: false
 footer: true
 ---
 
-# Chris Verwymeren
+## Chris Verwymeren
 
 [+1 (415) 967-2048](tel:14159672048)  
 [cvee@me.com](mailto:cvee@me.com)  
 [cvee.github.com](http://cvee.github.com)  
 [@cvee](https://twitter.com/cvee)  
 
-# Employment
+## Employment
 
 [iStrategyLabs](http://istrategylabs.com); Washington, DC  
 *Chief Technology Officer 2011- Present*
@@ -43,7 +43,7 @@ footer: true
 * Led development on the web application component of TecNet, a full-featured circuit provisioning system used by telecommunications providers to maintain their physical and logical network infrastructures. Development was accomplished using Google Web Toolkit, Java, JavaServer Pages, HTML, Cascading Style Sheets, JavaScript and Oracle.
 * Using C/C++, Qt and Oracle, designed and implemented enhancements to the desktop application component of TecNet targeting a Windows and Solaris environment.
 
-# Open Source
+## Open Source
 
 **Creator**
 
@@ -59,11 +59,11 @@ footer: true
 * [Change by Us](https://github.com/localprojects/Change-By-Us)
 * [Open Radar](https://github.com/timburks/openradar)
 
-# Education
+## Education
 
 University of Manitoba, Bachelor of Science: Computer Science (Major Co-op), 2002
 
-# Summary
+## Summary
 
 **Languages**  
 Objective-C, C/C++, Cascading Style Sheets (CSS), Java, JavaScript, HTML, PHP, Python, SQL, Unix Shell Scripting    
