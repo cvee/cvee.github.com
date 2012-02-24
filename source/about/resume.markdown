@@ -39,8 +39,8 @@ footer: true
 [Avant Systems Group](http://avant.ca); Winnipeg, MB  
 *Developer/Analyst* 2004 - 2007
 
-* Developed the Zamber Suite component xDSL Profiler, a J2EE web application that monitors Digital Subscriber Line (DSL) equipment and automatically makes adjustments to achieve optimal performance.
-* Led development on the web application component of TecNet, a full-featured circuit provisioning system used by telecommunications providers to maintain their physical and logical network infrastructures. Development was accomplished using Google Web Toolkit, Java, JavaServer Pages, HTML, Cascading Style Sheets, JavaScript and Oracle.
+* Developed the [Zamber Suite](http://avant.ca/solutions_zamber.html) component [xDSL Profiler](http://avant.ca/profiler_description.html), a J2EE web application that monitors Digital Subscriber Line (DSL) equipment and automatically makes adjustments to achieve optimal performance.
+* Led development on the web application component of [TecNet](http://avant.ca/solutions_tecnet.html), a full-featured circuit provisioning system used by telecommunications providers to maintain their physical and logical network infrastructures. Development was accomplished using Google Web Toolkit, Java, JavaServer Pages, HTML, Cascading Style Sheets, JavaScript and Oracle.
 * Using C/C++, Qt and Oracle, designed and implemented enhancements to the desktop application component of TecNet targeting a Windows and Solaris environment.
 
 ## Open Source
