@@ -18,22 +18,22 @@ footer: true
 *Chief Technology Officer 2011- Present*
 
 * [GE Social Fridge](http://www.istrategylabs.com/2012/03/the-ge-social-fridge-opens-at-sxsw-with-10-foursquare-check-ins)
- * Combined [Arduino](http://www.arduino.cc/) hardware with software written using C++ and [node.js](http://nodejs.org) to create a vintage refrigerator that automatically openes after every ten [Foursquare](https://foursquare.com/) check-ins.
- * The GE Social Fridge was displayed by General Electric in their GE Garage at SXSW 2012.
+  * Combined [Arduino](http://www.arduino.cc/) hardware with software written using C++ and [node.js](http://nodejs.org) to create a vintage refrigerator that automatically openes after every ten [Foursquare](https://foursquare.com/) check-ins.
+  * The GE Social Fridge was displayed by General Electric in their GE Garage at SXSW 2012.
 * [DCWeek Dashboard](http://ford.getgrandstand.com/)
- * Developed a node.js and [Twitter](http://twitter.com) powered web dashboard to track and display [Digital Capital Week 2011](http://digitalcapitalweek.org) related tweets over the course of the festival.
+  * Developed a node.js and [Twitter](http://twitter.com) powered web dashboard to track and display [Digital Capital Week 2011](http://digitalcapitalweek.org) related tweets over the course of the festival.
 * [Open-Source](https://github.com/istrategylabs)
- * Created the open-source [node.js](http://nodejs.org) libraries [node-topsy](https://github.com/iStrategyLabs/node-topsy) and [node-twitter](https://github.com/iStrategyLabs/node-twitter).
+  * Created the open-source node.js libraries [node-topsy](https://github.com/iStrategyLabs/node-topsy) and [node-twitter](https://github.com/iStrategyLabs/node-twitter).
 
 [Freshcode](http://madefresh.ca); Winnipeg, MB  
 *Software Developer 2009 - 2011*
 
 * [Bodega](http://appbodega.com/)
- * Bodega is a Mac app that makes it easy for customers to manage their installed apps, discover new apps and share discoveries with friends.
- * Developed the customer facing Mac OS X desktop app as well as the robust backend system used to drive the customer app. The backend system was implemented using Apache, PHP and MySQL while the customer app was implemented using Objective-C and Cocoa.
+  * Bodega is a Mac app that makes it easy for customers to manage their installed apps, discover new apps and share discoveries with friends.
+  * Developed the customer facing Mac OS X desktop app as well as the robust backend system used to drive the customer app. The backend system was implemented using Apache, PHP and MySQL while the customer app was implemented using Objective-C and Cocoa.
 * [DrugHub](http://itunes.apple.com/ca/app/drughub-medicine-cabinet-in/id421028414?mt=8)
- * DrugHub is a iOS app designed to assist customers in managing their medications.
- * Responsible for creating heavily modified versions of the base-level UIKit classes to achieve the custom styled user interface.
+  * DrugHub is a iOS app designed to assist customers in managing their medications.
+  * Responsible for creating heavily modified versions of the base-level UIKit classes to achieve the custom styled user interface.
 
 [TailStorm](http://tailstorm.com/); Winnipeg, MB  
 *Software Developer 2007 - 2009*
