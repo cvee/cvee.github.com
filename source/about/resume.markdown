@@ -33,7 +33,7 @@ footer: true
   * Developed the customer facing Mac OS X desktop app as well as the robust backend system used to drive the customer app. The backend system was implemented using Apache, PHP and MySQL while the customer app was implemented using Objective-C and Cocoa.
 * [DrugHub](http://itunes.apple.com/ca/app/drughub-medicine-cabinet-in/id421028414?mt=8)
   * DrugHub is a iOS app designed to assist customers in managing their medications.
-  * Responsible for creating heavily modified versions of the base-level UIKit classes to achieve the custom styled user interface.
+  * Responsible for creating heavily modified versions of base-level UIKit classes to achieve the custom styled user interface.
 
 [TailStorm](http://tailstorm.com/); Winnipeg, MB  
 *Software Developer 2007 - 2009*
