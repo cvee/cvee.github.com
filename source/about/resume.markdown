@@ -18,7 +18,7 @@ footer: true
 *Chief Technology Officer 2011- Present*
 
 * [GE Social Fridge](http://www.istrategylabs.com/2012/03/the-ge-social-fridge-opens-at-sxsw-with-10-foursquare-check-ins)
-  * Combined [Arduino](http://www.arduino.cc/) hardware with software written using C++ and [node.js](http://nodejs.org) to create a vintage refrigerator that automatically openes after every ten [Foursquare](https://foursquare.com/) check-ins.
+  * Combined [Arduino](http://www.arduino.cc/) hardware with software written using C++ and [node.js](http://nodejs.org) to create a vintage refrigerator that automatically opens after every ten [Foursquare](https://foursquare.com/) check-ins.
   * The GE Social Fridge was displayed by General Electric in their GE Garage at SXSW 2012.
 * [DCWeek Dashboard](http://ford.getgrandstand.com/)
   * Developed a node.js and [Twitter](http://twitter.com) powered web dashboard to track and display [Digital Capital Week 2011](http://digitalcapitalweek.org) related tweets over the course of the festival.
@@ -69,14 +69,3 @@ footer: true
 ## Education
 
 University of Manitoba, Bachelor of Science: Computer Science (Major Co-op), 2002
-
-## Summary
-
-**Languages**  
-Objective-C, C/C++, Cascading Style Sheets (CSS), Java, JavaScript, HTML, PHP, Python, SQL, Unix Shell Scripting    
-**Frameworks and Libraries**  
-Cappuccino, Cocoa, Cocoa Touch, GHUnit, jQuery, node.js, Sparkle  
-**Databases**  
-IBM DB2, Microsoft SQL Server, MongoDB, MySQL, Oracle Database 10g, Sybase  
-**Operating Systems**  
-FreeBSD, IBM AIX, iOS, Linux, Mac OS X, OpenBSD, Solaris, Windows 95/98/NT/2000/XP  
